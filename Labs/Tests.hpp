@@ -7,7 +7,7 @@ namespace Asserts
 	void AssertEqual(int x, int y)
 	{
 		std::cout << ((x == y) ? "Success!\n"
-			: std::string("Faild on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
+			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
 	}
 }
 namespace MatrixTests
