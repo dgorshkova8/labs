@@ -122,3 +122,70 @@ int Matrix::Id()
 {
 	return id;
 }
+
+Matrix& Matrix::operator=(const Matrix& obj)
+{
+	if (this == &obj)
+		return *this;
+
+	columnsCount = obj.columnsCount;
+	rowsCount = obj.rowsCount;
+
+	// Освобождаем память
+	for (int i = 0; i < rowsCount; i++)
+		delete[] data[i];
+	delete[] data;
+
+	// Выделяем память заного под новую матрицу и заполняем её
+	data = new int* [rowsCount];
+	for (int i = 0; i < rowsCount; i++)
+	{
+		data[i] = new int[columnsCount];
+		for (int j = 0; j < columnsCount; j++)
+			data[i][j] = obj.data[i][j];
+	}
+}
+
+int& Matrix::operator[](int i)
+{
+	int col = i % columnsCount;
+	int row = i / rowsCount;
+	return data[row][col];
+}
+
+bool Matrix::operator()(int column, int row, int value)
+{
+	return SetValue(column, row, value);
+}
+
+Matrix operator+(const Matrix& obj1, const Matrix& obj2)
+{
+	// Сравниваем размерности
+	if (obj1.columnsCount != obj2.columnsCount || obj1.rowsCount != obj2.rowsCount)
+		return Matrix();
+
+	// Создаём копию первой матрицы
+	Matrix m(obj1);
+	// Добавляем значения второй
+	for (int i = 0; i < m.rowsCount; i++)
+		for (int j = 0; j < m.columnsCount; j++)
+			m.data[i][j] = m.data[i][j] + obj2.data[i][j];
+
+	return m;
+}
+
+Matrix operator-(const Matrix& obj1, const Matrix& obj2)
+{
+	// Сравниваем размерности
+	if (obj1.columnsCount != obj2.columnsCount || obj1.rowsCount != obj2.rowsCount)
+		return Matrix();
+
+	// Создаём копию первой матрицы
+	Matrix m(obj1);
+	// Отнимаем значения второй
+	for (int i = 0; i < m.rowsCount; i++)
+		for (int j = 0; j < m.columnsCount; j++)
+			m.data[i][j] = m.data[i][j] - obj2.data[i][j];
+
+	return m;
+}
