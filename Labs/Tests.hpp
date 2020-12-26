@@ -195,6 +195,9 @@ namespace MatrixTests
 		AssertEqual(m2[2], 3);
 		std::cout << "\t( ([1,2],[3,4]) index 3 = 4): ";
 		AssertEqual(m2[3], 4);
+		std::cout << "\t( ( index 3 assign -1  = -1): ";
+		m2[3] = -1;
+		AssertEqual(m2[3], -1);
 	}
 
 	void FullTest()
