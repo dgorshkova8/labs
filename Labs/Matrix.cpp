@@ -128,13 +128,14 @@ Matrix& Matrix::operator=(const Matrix& obj)
 	if (this == &obj)
 		return *this;
 
-	columnsCount = obj.columnsCount;
-	rowsCount = obj.rowsCount;
-
 	// Освобождаем память
 	for (int i = 0; i < rowsCount; i++)
 		delete[] data[i];
 	delete[] data;
+
+
+	columnsCount = obj.columnsCount;
+	rowsCount = obj.rowsCount;
 
 	// Выделяем память заного под новую матрицу и заполняем её
 	data = new int* [rowsCount];
@@ -144,6 +145,7 @@ Matrix& Matrix::operator=(const Matrix& obj)
 		for (int j = 0; j < columnsCount; j++)
 			data[i][j] = obj.data[i][j];
 	}
+	return *this;
 }
 
 int& Matrix::operator[](int i)
@@ -156,6 +158,59 @@ int& Matrix::operator[](int i)
 bool Matrix::operator()(int column, int row, int value)
 {
 	return SetValue(column, row, value);
+}
+
+bool Matrix::serialize(const char* path)
+{
+	std::ofstream f;
+	try
+	{
+		f.open(path, std::ios::binary | std::ios::out);
+	}
+	catch (const std::exception&)
+	{
+		return false;
+	}
+
+	f.write((char*)&columnsCount, sizeof(columnsCount));
+	f.write((char*)&rowsCount, sizeof(rowsCount));
+
+	for (int i = 0; i < columnsCount; i++)
+		for (int j = 0; j < rowsCount; j++)
+			f.write((char*)&(data[i][j]), sizeof(data[i][j]));
+	f.close();
+	return true;
+}
+
+bool Matrix::deserialize(const char* path)
+{
+	std::ifstream f;
+	Matrix* temp = nullptr;
+	try
+	{
+		f.open(path, std::ios::binary | std::ios::in);
+		int cc = 0;
+		int rc = 0;
+		f.read((char*)&cc, sizeof(columnsCount));
+		f.read((char*)&rc, sizeof(rowsCount));
+		temp = new Matrix(cc, rc);
+		for (int i = 0; i < cc; i++)
+			for (int j = 0; j < rc; j++)
+			{
+				int t = 0;
+				f.read((char*)&(t), sizeof(t));
+				temp->data[i][j] = t;
+			}
+		f.close();
+	}
+	catch (const std::exception&)
+	{
+		return false;
+	}
+
+	this->operator=(*temp);
+	delete temp;
+	return true;
 }
 
 Matrix operator+(const Matrix& obj1, const Matrix& obj2)
@@ -188,4 +243,68 @@ Matrix operator-(const Matrix& obj1, const Matrix& obj2)
 			m.data[i][j] = m.data[i][j] - obj2.data[i][j];
 
 	return m;
+}
+
+std::ostream& operator<<(std::ostream& os, const Matrix& obj)
+{
+	os << obj.columnsCount << " " << obj.rowsCount << "\n";
+	for (int i = 0; i < obj.columnsCount; i++)
+	{
+		for (int j = 0; j < obj.rowsCount; j++)
+			os << obj.data[i][j] << " ";
+		os << "\n";
+	}
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Matrix& obj)
+{
+	// Освобождаем память
+	for (int i = 0; i < obj.rowsCount; i++)
+		delete[] obj.data[i];
+	delete[] obj.data;
+
+	is >> obj.columnsCount >> obj.rowsCount;
+
+	// Выделяем память заного под новую матрицу и заполняем её
+	obj.data = new int* [obj.rowsCount];
+	for (int i = 0; i < obj.rowsCount; i++)
+	{
+		obj.data[i] = new int[obj.columnsCount];
+		for (int j = 0; j < obj.columnsCount; j++)
+			is >> obj.data[i][j];
+	}
+	return is;
+}
+
+std::ofstream& operator<<(std::ofstream& ofs, const Matrix& obj)
+{
+	ofs << obj.columnsCount << " " << obj.rowsCount << "\n";
+	for (int i = 0; i < obj.columnsCount; i++)
+	{
+		for (int j = 0; j < obj.rowsCount; j++)
+			ofs << obj.data[i][j] << " ";
+		ofs << "\n";
+	}
+	return ofs;
+}
+
+std::ifstream& operator>>(std::ifstream& ifs, Matrix& obj)
+{
+	// Освобождаем память
+	for (int i = 0; i < obj.rowsCount; i++)
+		delete[] obj.data[i];
+	delete[] obj.data;
+
+	ifs >> obj.columnsCount >> obj.rowsCount;
+
+	// Выделяем память заного под новую матрицу и заполняем её
+	obj.data = new int* [obj.rowsCount];
+	for (int i = 0; i < obj.rowsCount; i++)
+	{
+		obj.data[i] = new int[obj.columnsCount];
+		for (int j = 0; j < obj.columnsCount; j++)
+			ifs >> obj.data[i][j];
+	}
+	return ifs;
 }
