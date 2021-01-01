@@ -139,12 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EMatrix.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="BaseMatrix.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="TMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseMatrix.h" />
+    <ClInclude Include="EMatrix.h" />
+    <ClInclude Include="ISettableMatrix.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Tests.hpp" />
+    <ClInclude Include="TMatrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
