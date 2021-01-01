@@ -117,18 +117,27 @@ namespace MatrixTests
 		m2.SetValue(0, 1, 3);
 		m2.SetValue(1, 1, 4);
 		m1 = m2;
-		std::cout << "\t(deafult assignment ([1,2],[3,4]) and check rows count = 2): ";
+		std::cout << "\t(deafult(3x3) assignment ([1,2],[3,4]) and check rows count = 2): ";
 		AssertEqual(m1.RowsCount(), 2);
-		std::cout << "\t(deafult assignment ([1,2],[3,4]) and check columns count = 2): ";
+		std::cout << "\t(deafult(3x3) assignment ([1,2],[3,4]) and check columns count = 2): ";
 		AssertEqual(m1.ColumnsCount(), 2);
-		std::cout << "\t(deafult assignment ([1,2],[3,4]) and check (0,0) = 1): ";
+		std::cout << "\t(deafult(3x3) assignment ([1,2],[3,4]) and check (0,0) = 1): ";
 		AssertEqual(m1.GetValue(0, 0), 1);
-		std::cout << "\t(deafult assignment ([1,2],[3,4]) and check (1,0) = 2): ";
+		std::cout << "\t(deafult(3x3) assignment ([1,2],[3,4]) and check (1,0) = 2): ";
 		AssertEqual(m1.GetValue(1, 0), 2);
-		std::cout << "\t(deafult assignment ([1,2],[3,4]) and check (0,1) = 3): ";
+		std::cout << "\t(deafult(3x3) assignment ([1,2],[3,4]) and check (0,1) = 3): ";
 		AssertEqual(m1.GetValue(0, 1), 3);
-		std::cout << "\t(deafult assignment ([1,2],[3,4]) and check (1,1) = 4): ";
+		std::cout << "\t(deafult(3x3) assignment ([1,2],[3,4]) and check (1,1) = 4): ";
 		AssertEqual(m1.GetValue(1, 1), 4);
+		Matrix m3;
+		m2 = m3;
+		std::cout << "\t(([1,2],[3,4]) assignment default(3x3) and check rows count = 3): ";
+		AssertEqual(m2.RowsCount(), 3);
+		std::cout << "\t(([1,2],[3,4]) assignment default(3x3) and check columns count = 3): ";
+		AssertEqual(m2.ColumnsCount(), 3);
+		std::cout << "\t(([1,2],[3,4]) assignment default(3x3) and check (2, 2) = 0): ";
+		AssertEqual(m2.GetValue(2, 2), 0);
+
 	}
 
 	void MatrixSummTest()

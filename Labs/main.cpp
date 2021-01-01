@@ -7,6 +7,7 @@ using namespace std;
 int main()
 {
 	Matrix matrix;
+	const char* serializePath = "serialized.b";
 
 	bool active = true;
 	while (active)
@@ -23,7 +24,10 @@ int main()
 			<< "5. SetValue\n"
 			<< "6. SortRow\n"
 			<< "7. SortColumn\n"
-			<< "9. Tests\n"
+			<< "8. inputMatrix\n"
+			<< "9. serialize\n"
+			<< "10. deserialize\n"
+			<< "20. Tests\n"
 			<< "0. Exit\n"
 			<< "---> ";
 		cin >> a;
@@ -31,7 +35,7 @@ int main()
 		{
 		case 1:
 		{
-			cout << matrix.ToString() << endl;
+			cout << matrix << endl;
 			break;
 		}
 		case 2:
@@ -102,7 +106,24 @@ int main()
 			cout << "Sorted" << endl;
 			break;
 		}
+		case 8:
+		{
+			cout << "input columns rows values: ";
+			cin >> matrix;
+			cout << "Saved";
+			break;
+		}
 		case 9:
+		{
+			cout << ((matrix.serialize(serializePath)) ? "serialized" : "Can't serialize");
+			break;
+		}
+		case 10:
+		{
+			cout << ((matrix.deserialize(serializePath)) ? "deserialized" : "Can't deserialize");
+			break;
+		}
+		case 20:
 		{
 			MatrixTests::FullTest();
 			break;

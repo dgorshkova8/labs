@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <fstream>
+#include <iostream>
 
 class Matrix
 {
@@ -93,5 +95,21 @@ public:
 	// Параметры столбец, строка, значение
 	// Выполняет функцию SetValue
 	bool operator()(int column, int row, int value);
+
+	// Перегрузка дружественных потоковых операторов
+
+	// Потоковый оператор вывода
+	friend std::ostream& operator<<(std::ostream& os, const Matrix& obj);
+	// Потоковый оператор ввода
+	friend std::istream& operator>>(std::istream& is, Matrix& obj);
+	// Файловый потоковый оператор вывода
+	friend std::ofstream& operator<<(std::ofstream& ofs, const Matrix& obj);
+	// Файловый потоковый оператор ввода
+	friend std::ifstream& operator>>(std::ifstream& ifs, Matrix& obj);
+
+	// Сохранение матрицы в файл в бинарном виде
+	bool serialize(const char* path);
+	// Загрузка матрицы из файла в бинарном виде
+	bool deserialize(const char* path);
 };
 
