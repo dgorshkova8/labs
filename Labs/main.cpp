@@ -27,6 +27,8 @@ int main()
 			<< "8. inputMatrix\n"
 			<< "9. serialize\n"
 			<< "10. deserialize\n"
+			<< "11. append EMatrix\n"
+			<< "12. input EMatrix\n"
 			<< "20. Tests\n"
 			<< "0. Exit\n"
 			<< "---> ";
@@ -121,6 +123,32 @@ int main()
 		case 10:
 		{
 			cout << ((matrix.deserialize(serializePath)) ? "deserialized" : "Can't deserialize");
+			break;
+		}
+		case 11:
+		{
+			if (matrix.ColumnsCount() != matrix.RowsCount())
+			{
+				cout << "Matrix shoold be quad";
+				break;
+			}
+			EMatrix em(matrix.ColumnsCount());
+			matrix = matrix + em;
+			cout << "Appended";
+			break;
+		}
+		case 12:
+		{
+			cout << "input rank: ";
+			cin >> col;
+			if (col <= 0)
+			{
+				cout << "rank shoold be bigger than 0";
+				break;
+			}
+			EMatrix em(col);
+			matrix = em;
+			cout << "matrix setted";
 			break;
 		}
 		case 20:

@@ -2,9 +2,17 @@
 #include <iostream>
 #include <string>
 #include "Matrix.h"
+#include "EMatrix.h"
+#include "TMatrix.h"
 namespace Asserts
 {
 	void AssertEqual(int x, int y)
+	{
+		std::cout << ((x == y) ? "Success!\n"
+			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
+	}
+
+	void AssertEqual(bool x, bool y)
 	{
 		std::cout << ((x == y) ? "Success!\n"
 			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
@@ -209,6 +217,59 @@ namespace MatrixTests
 		AssertEqual(m2[3], -1);
 	}
 
+	void EMatrixTest()
+	{
+		std::cout << "EMatrixTest:\n";
+		EMatrix em;
+		std::cout << "( Deafult EMatrix 3x3 range = 3 ): ";
+		AssertEqual(em.GetRange(), 3);
+		std::cout << "( Deafult EMatrix 3x3 columns count = 3 ): ";
+		AssertEqual(em.ColumnsCount(), 3);
+		std::cout << "( Deafult EMatrix 3x3 rows count = 3 ): ";
+		AssertEqual(em.RowsCount(), 3);
+		std::cout << "( Deafult EMatrix 3x3 (1, 1) = 1 ): ";
+		AssertEqual(em.GetValue(1, 1), 1);
+		std::cout << "( Deafult EMatrix 3x3 (0, 1) = 0 ): ";
+		AssertEqual(em.GetValue(0, 1), 0);
+
+		Matrix m = em + em;
+		std::cout << "( Matrix = EMatrix 3x3 + EMatrix 3x3  (1, 1) = 2 ): ";
+		AssertEqual(m.GetValue(1, 1), 2);
+		
+	}
+
+	void TMatrixTest()
+	{
+		std::cout << "TMatrixTest:\n";
+		TMatrix tm;
+		std::cout << "( Deafult TMatrix 3x3 range = 3 ): ";
+		AssertEqual(tm.GetRange(), 3);
+		std::cout << "( Deafult TMatrix 3x3 columns count = 3 ): ";
+		AssertEqual(tm.ColumnsCount(), 3);
+		std::cout << "( Deafult TMatrix 3x3 rows count = 3 ): ";
+		AssertEqual(tm.RowsCount(), 3);
+		std::cout << "( Deafult TMatrix 3x3 (1, 1) = 0 ): ";
+		AssertEqual(tm.GetValue(1, 1), 0);
+		std::cout << "( Deafult TMatrix 3x3 (0, 1) = 0 ): ";
+		AssertEqual(tm.GetValue(0, 1), 0);
+
+		Matrix m = tm + tm;
+		std::cout << "( Matrix = TMatrix 3x3 + TMatrix 3x3  (1, 1) = 0 ): ";
+		AssertEqual(m.GetValue(1, 1), 0);
+
+		std::cout << "( TMatrix 3x3 (1, 1) set 5  returns true ): ";
+		AssertEqual(tm.SetValue(1, 1, 5), true);
+		std::cout << "( TMatrix 3x3 (1, 1) set 5  (1, 1) = 5 ): ";
+		AssertEqual(tm.GetValue(1, 1), 5);
+
+		
+		std::cout << "( TMatrix 3x3 (1, 0) set 5  returns false ): ";
+		AssertEqual(tm.SetValue(1, 0, 5), false);
+		std::cout << "( TMatrix 3x3 (1, 0) set 5  (1, 0) = 0 ): ";
+		AssertEqual(tm.GetValue(1, 0), 0);
+		
+	}
+
 	void FullTest()
 	{
 		DefaultMatrixInitTest();
@@ -228,6 +289,10 @@ namespace MatrixTests
 		MatrixMinusTest();
 		std::cout << std::endl;
 		MatrixIndexOperatorTest();
+		std::cout << std::endl;
+		EMatrixTest();
+		std::cout << std::endl;
+		TMatrixTest();
 		std::cout << std::endl;
 	}
 }
