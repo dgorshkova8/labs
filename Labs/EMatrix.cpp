@@ -29,3 +29,18 @@ int EMatrix::GetRange() const
 {
 	return range;
 }
+
+std::string EMatrix::ToString()
+{
+	std::string str = "EMatrix:\n";
+	for (int i = 0; i < rowsCount; i++)
+	{
+		for (int j = 0; j < columnsCount; j++)
+		{
+			str += ((i == j) ? std::to_string(data[i][j]) : " ") + " ";
+		}
+		str += "\n";
+	}
+	str += "\0";
+	return str;
+}

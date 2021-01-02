@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseMatrixList.cpp" />
     <ClCompile Include="EMatrix.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BaseMatrix.cpp" />
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseMatrix.h" />
+    <ClInclude Include="BaseMatrixList.h" />
     <ClInclude Include="EMatrix.h" />
     <ClInclude Include="ISettableMatrix.h" />
     <ClInclude Include="Matrix.h" />

@@ -15,5 +15,7 @@ public:
 
 	// Возвращает ранг единичной матрицы
 	int GetRange() const;
+
+	std::string ToString();
 };
 

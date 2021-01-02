@@ -50,7 +50,7 @@ public:
 	int GetValue(int column, int row) const;
 
 	// ¬озвращает строковое представление матрицы
-	std::string ToString();
+	virtual std::string ToString();
 
 	// ¬озвращает уникальный id матрицы
 	int Id() const;
