@@ -4,6 +4,7 @@
 #include "Matrix.h"
 #include "EMatrix.h"
 #include "TMatrix.h"
+#include "BaseMatrixList.h"
 namespace Asserts
 {
 	void AssertEqual(int x, int y)
@@ -270,6 +271,27 @@ namespace MatrixTests
 		
 	}
 
+	void MatrixListTest()
+	{
+		std::cout << "MatrixListTest:\n";
+		BaseMatrixList list;
+		Matrix m;
+		EMatrix em;
+		TMatrix tm;
+		BaseMatrix bm;
+		std::cout << "( BaseMatrixList init size = 0 ): ";
+		AssertEqual(list.GetSize(), 0);
+		list.Append(bm);
+		list.Append(m);
+		list.Append(em);
+		list.Append(tm);
+		std::cout << "( BaseMatrix list with BaseMatrix, FullMatrix, EMatrix, TMatrix size = 4 ): ";
+		AssertEqual(list.GetSize(), 4);
+		list.Clear();
+		std::cout << "( Cleared BaseMatrix list size = 0 ): ";
+		AssertEqual(list.GetSize(), 0);
+	}
+
 	void FullTest()
 	{
 		DefaultMatrixInitTest();
@@ -294,6 +316,9 @@ namespace MatrixTests
 		std::cout << std::endl;
 		TMatrixTest();
 		std::cout << std::endl;
+		MatrixListTest();
+		std::cout << std::endl;
+
 	}
 }
 
