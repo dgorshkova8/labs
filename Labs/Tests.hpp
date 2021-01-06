@@ -4,10 +4,16 @@
 #include "Matrix.h"
 #include "EMatrix.h"
 #include "TMatrix.h"
-#include "BaseMatrixList.h"
+#include "List.hpp"
 namespace Asserts
 {
 	void AssertEqual(int x, int y)
+	{
+		std::cout << ((x == y) ? "Success!\n"
+			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
+	}
+
+	void AssertEqual(float x, float y)
 	{
 		std::cout << ((x == y) ? "Success!\n"
 			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
@@ -423,7 +429,7 @@ namespace MatrixTests
 	void MatrixListTest()
 	{
 		std::cout << "MatrixListTest:\n";
-		BaseMatrixList list;
+		List<BaseMatrix> list;
 		Matrix m;
 		EMatrix em;
 		TMatrix tm;
@@ -439,6 +445,74 @@ namespace MatrixTests
 		list.Clear();
 		std::cout << "\t( Cleared BaseMatrix list size = 0 ): ";
 		AssertEqual(list.GetSize(), 0);
+	}
+
+	void intListTest()
+	{
+		std::cout << "intListTest:\n";
+		List<int> intList;
+		int a = 1;
+		int b = 2;
+
+		std::cout << "\t( intList init size = 0 ): ";
+		AssertEqual(intList.GetSize(), 0);
+
+		intList.Append(a);
+		intList.Append(b);
+
+		std::cout << "\t( intList with a = 1, b = 2 size = 2 ): ";
+		AssertEqual(intList.GetSize(), 2);
+
+		std::cout << "\t( intList with a = 1, b = 2 intList[0] = 1 ): ";
+		AssertEqual(intList[0], 1);
+
+		std::cout << "\t( intList with a = 1, b = 2 intList[1] = 2 ): ";
+		AssertEqual(intList[1], 2);
+
+		std::cout << "\t( intList with a = 1, b = 2 intList[2] = 1 ): ";
+		AssertEqual(intList[2], 1);
+
+		std::cout << "\t( intList with a = 1, b = 2 intList[-1] = 2 ): ";
+		AssertEqual(intList[-1], 2);
+
+		intList.Clear();
+		std::cout << "\t( Cleared intList size = 0 ): ";
+		AssertEqual(intList.GetSize(), 0);
+
+	}
+
+	void floatListTest()
+	{
+		std::cout << "floatListTest:\n";
+		List<float> floatList;
+		float a = 0.5f;
+		float b = 1.5f;
+
+		std::cout << "\t( floatList init size = 0 ): ";
+		AssertEqual(floatList.GetSize(), 0);
+
+		floatList.Append(a);
+		floatList.Append(b);
+
+		std::cout << "\t( floatList with a = 0.5f, b = 1.5f size = 2 ): ";
+		AssertEqual(floatList.GetSize(), 2);
+
+		std::cout << "\t( floatList with a = 0.5f, b = 1.5f floatList[0] = 0.5 ): ";
+		AssertEqual(floatList[0], 0.5);
+
+		std::cout << "\t( floatList with a = 0.5f, b = 1.5f floatList[1] = 1.5 ): ";
+		AssertEqual(floatList[1], 1.5);
+
+		std::cout << "\t( floatList with a = 0.5f, b = 1.5f floatList[2] = 0.5 ): ";
+		AssertEqual(floatList[2], 0.5);
+
+		std::cout << "\t( floatList with a = 0.5f, b = 1.5f floatList[-1] = 1.5 ): ";
+		AssertEqual(floatList[-1], 1.5);
+
+		floatList.Clear();
+		std::cout << "\t( Cleared floatList size = 0 ): ";
+		AssertEqual(floatList.GetSize(), 0);
+
 	}
 
 	void FullTest()
@@ -464,6 +538,10 @@ namespace MatrixTests
 		EMatrixTest();
 		std::cout << std::endl;
 		TMatrixTest();
+		std::cout << std::endl;
+		intListTest();
+		std::cout << std::endl;
+		floatListTest();
 		std::cout << std::endl;
 		MatrixListTest();
 		std::cout << std::endl;
