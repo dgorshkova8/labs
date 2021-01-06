@@ -7,22 +7,30 @@
 #include "List.hpp"
 namespace Asserts
 {
+	int Good = 0;
+	int All = 0;
 	void AssertEqual(int x, int y)
 	{
+		All++;
 		std::cout << ((x == y) ? "Success!\n"
 			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
+		if (x == y)Good++;
 	}
 
 	void AssertEqual(float x, float y)
 	{
+		All++;
 		std::cout << ((x == y) ? "Success!\n"
 			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
+		if (x == y)Good++;
 	}
 
 	void AssertEqual(bool x, bool y)
 	{
+		All++;
 		std::cout << ((x == y) ? "Success!\n"
 			: std::string("Failed on ") + std::to_string(x) + " == " + std::to_string(y) + "\n");
+		if (x == y)Good++;
 	}
 }
 namespace MatrixTests
@@ -545,7 +553,7 @@ namespace MatrixTests
 		std::cout << std::endl;
 		MatrixListTest();
 		std::cout << std::endl;
-
+		std::cout << "Success/All: \n\t" << Good << "/" << All << std::endl;
 	}
 }
 
