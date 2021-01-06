@@ -30,6 +30,8 @@ void BaseMatrixList::Append(BaseMatrix& obj)
 
 BaseMatrix& BaseMatrixList::operator[](int index)
 {
+	if (index < 0 || index >= size)
+		throw std::exception("Out of range");
 	Node* temp = head;
 	if (index >= 0)
 		for (int i = 0; i < index; i++)

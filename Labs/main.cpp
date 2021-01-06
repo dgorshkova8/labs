@@ -78,12 +78,14 @@ int main()
 			cout << "input row: ";
 			cin >> row;
 
-			if (col < 0 || row < 0 || col >= matrix.ColumnsCount() || row >= matrix.RowsCount())
+			try
 			{
-				cout << "Bad index\n";
-				break;
+				cout << matrix.GetValue(col, row) << endl;
 			}
-			cout << matrix.GetValue(col, row) << endl;
+			catch (const std::exception& e)
+			{
+				cout << e.what();
+			}
 			break;
 		}
 		case 5:
@@ -94,39 +96,37 @@ int main()
 			cin >> row;
 			cout << "input value: ";
 			cin >> val;
-			if (col < 0 || row < 0 || col >= matrix.ColumnsCount() || row >= matrix.RowsCount())
-			{
-				cout << "Bad index\n";
-				break;
-			}
-			matrix.SetValue(col, row, val);
-			cout << "Setted"<< endl;
+			cout << (matrix.SetValue(col, row, val) ? "Setted" : "Out of range");
 			break;
 		}
 		case 6:
 		{
 			cout << "input row: ";
 			cin >> row;
-			if (row < 0 || row >= matrix.RowsCount())
+			try
 			{
-				cout << "Bad index\n";
-				break;
+				matrix.SortRow(row);
+				cout << "Sorted" << endl;
 			}
-			matrix.SortRow(row);
-			cout << "Sorted" << endl;
+			catch (const std::exception& e)
+			{
+				cout << e.what();
+			}
 			break;
 		}
 		case 7:
 		{
 			cout << "input column: ";
 			cin >> col;
-			if (col < 0 || col >= matrix.ColumnsCount())
+			try
 			{
-				cout << "Bad index\n";
-				break;
+				matrix.SortColumn(col);
+				cout << "Sorted" << endl;
 			}
-			matrix.SortColumn(col);
-			cout << "Sorted" << endl;
+			catch (const std::exception& e)
+			{
+				cout << e.what();
+			}
 			break;
 		}
 		case 8:
@@ -162,14 +162,16 @@ int main()
 		{
 			cout << "input rank: ";
 			cin >> col;
-			if (col <= 0)
+			try
 			{
-				cout << "rank shoold be bigger than 0";
-				break;
+				EMatrix em(col);
+				matrix = em;
+				cout << "matrix setted";
 			}
-			EMatrix em(col);
-			matrix = em;
-			cout << "matrix setted";
+			catch (const std::exception& e)
+			{
+				cout << e.what();
+			}
 			break;
 		}
 		case 13:
