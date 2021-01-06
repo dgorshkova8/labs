@@ -20,6 +20,8 @@ Matrix::~Matrix()
 
 void Matrix::SortRow(int row)
 {
+	if (row < 0 || row >= rowsCount)
+		throw std::exception("Out of range");
 	// Сортируем пузырьком data[row]
 	int temp = 0;
 	for (int i = 0; i < columnsCount - 1; i++)
@@ -34,6 +36,8 @@ void Matrix::SortRow(int row)
 
 void Matrix::SortColumn(int column)
 {
+	if (column < 0 || column >= columnsCount)
+		throw std::exception("Out of range");
 	int temp = 0;
 	// Сортируем пузырьком data[][column]
 	for (int i = 0; i < rowsCount - 1; i++)

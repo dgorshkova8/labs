@@ -4,6 +4,10 @@ unsigned int BaseMatrix::idCounter = 0;
 
 BaseMatrix::BaseMatrix(int columnsCount, int rowsCount)
 {
+	if (columnsCount < 1)
+		throw std::exception("Columns count must be bigger than 0");
+	if (rowsCount < 1)
+		throw std::exception("Rows count must be bigger than 0");
 	id = idCounter;
 	idCounter++;
 
@@ -66,6 +70,8 @@ int BaseMatrix::ColumnsCount() const
 
 int BaseMatrix::GetValue(int column, int row) const
 {
+	if (column < 0 || row < 0 || column >= columnsCount || row >= rowsCount)
+		throw std::exception("Out of range");
 	return data[row][column];
 }
 
@@ -116,6 +122,8 @@ BaseMatrix& BaseMatrix::operator=(const BaseMatrix& obj)
 
 int& BaseMatrix::operator[](int i) const
 {
+	if (i < 0 || i >= columnsCount*rowsCount)
+		throw std::exception("Out of range");
 	int col = i % columnsCount;
 	int row = i / rowsCount;
 	return data[row][col];
@@ -178,7 +186,7 @@ BaseMatrix operator+(const BaseMatrix& obj1, const BaseMatrix& obj2)
 {
 	// Сравниваем размерности
 	if (obj1.columnsCount != obj2.columnsCount || obj1.rowsCount != obj2.rowsCount)
-		return BaseMatrix();
+		throw std::exception("BaseMatrix must have similar degrees");
 
 	// Создаём копию первой матрицы
 	BaseMatrix m(obj1);
@@ -194,7 +202,7 @@ BaseMatrix operator-(const BaseMatrix& obj1, const BaseMatrix& obj2)
 {
 	// Сравниваем размерности
 	if (obj1.columnsCount != obj2.columnsCount || obj1.rowsCount != obj2.rowsCount)
-		return BaseMatrix();
+		throw std::exception("BaseMatrix must have similar degrees");
 
 	// Создаём копию первой матрицы
 	BaseMatrix m(obj1);
