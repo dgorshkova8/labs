@@ -18,5 +18,6 @@ public:
 	int GetRange() const;
 
 	bool SetValue(int column, int row, int value);
+	std::string ToString();
 };
 

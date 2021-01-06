@@ -84,3 +84,18 @@ bool Matrix::SetValue(int column, int row, int value)
 	data[row][column] = value;
 	return true;
 }
+
+std::string Matrix::ToString()
+{
+	std::string str = "Full matrix:\n";
+	for (int i = 0; i < rowsCount; i++)
+	{
+		for (int j = 0; j < columnsCount; j++)
+		{
+			str += std::to_string(data[i][j]) + " ";
+		}
+		str += "\n";
+	}
+	str += "\0";
+	return str;
+}

@@ -36,3 +36,18 @@ bool TMatrix::SetValue(int column, int row, int value)
 	data[row][column] = value;
 	return true;
 }
+
+std::string TMatrix::ToString()
+{
+	std::string str = "TMatrix:\n";
+	for (int i = 0; i < rowsCount; i++)
+	{
+		for (int j = 0; j < columnsCount; j++)
+		{
+			str += ((j <= i) ? std::to_string(data[i][j]) : " ") + " ";
+		}
+		str += "\n";
+	}
+	str += "\0";
+	return str;
+}

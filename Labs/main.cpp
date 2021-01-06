@@ -1,13 +1,25 @@
 #include <iostream>
 #include "Matrix.h"
 #include "Tests.hpp"
+#include "BaseMatrixList.h"
 
 using namespace std;
 
 int main()
 {
 	Matrix matrix;
+	BaseMatrixList matrixList;
 	const char* serializePath = "serialized.b";
+
+	BaseMatrix B1(3, 2);
+	EMatrix E1(5);
+	TMatrix T1(3);
+	T1.SetValue(0, 0, 0);
+	T1.SetValue(0, 1, 1);
+	T1.SetValue(1, 1, 2);
+	T1.SetValue(0, 2, 3);
+	T1.SetValue(1, 2, 4);
+	T1.SetValue(2, 2, 5);
 
 	bool active = true;
 	while (active)
@@ -29,10 +41,19 @@ int main()
 			<< "10. deserialize\n"
 			<< "11. append EMatrix\n"
 			<< "12. input EMatrix\n"
+			<< "\n\tMatrixList:\n"
+			<< "13. append this matrix in list\n"
+			<< "14. append matrix E1\n"
+			<< "15. append matrix T1\n"
+			<< "16. append matrix B1\n"
+			<< "17. call ToString for all list elements\n"
+			<< "18. clear list\n"
+			<< "\n\tTests:\n"
 			<< "20. Tests\n"
-			<< "0. Exit\n"
+			<< "0. Exit\n________\n\n"
 			<< "---> ";
 		cin >> a;
+		cout << "\n";
 		switch (a)
 		{
 		case 1:
@@ -149,6 +170,44 @@ int main()
 			EMatrix em(col);
 			matrix = em;
 			cout << "matrix setted";
+			break;
+		}
+		case 13:
+		{
+			matrixList.Append(matrix);
+			cout << "Appended";
+			break;
+		}
+		case 14:
+		{
+			matrixList.Append(E1);
+			cout << "Appended";
+			break;
+		}
+		case 15:
+		{
+			matrixList.Append(T1);
+			cout << "Appended";
+			break;
+		}
+		case 16:
+		{
+			matrixList.Append(B1);
+			cout << "Appended";
+			break;
+		}
+		case 17:
+		{
+			for (int i = 0; i < matrixList.GetSize(); i++)
+			{
+				cout << matrixList[i].ToString() << endl;
+			}
+			break;
+		}
+		case 18:
+		{
+			matrixList.Clear();
+			cout << "Cleared";
 			break;
 		}
 		case 20:

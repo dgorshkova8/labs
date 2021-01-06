@@ -71,7 +71,7 @@ int BaseMatrix::GetValue(int column, int row) const
 
 std::string BaseMatrix::ToString()
 {
-	std::string str = "";
+	std::string str = "Base matrix:\n";
 	for (int i = 0; i < rowsCount; i++)
 	{
 		for (int j = 0; j < columnsCount; j++)

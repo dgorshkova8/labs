@@ -24,5 +24,7 @@ public:
 	bool operator()(int column, int row, int value);
 
 	bool SetValue(int column, int row, int value);
+
+	std::string ToString();
 };
 
