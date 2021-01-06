@@ -38,6 +38,32 @@ namespace MatrixTests
 
 		std::cout << "\t(matrix.GetValue(2, 2) == 0): ";
 		AssertEqual(matrix.GetValue(2, 2), 0);
+
+		bool initFlag = false;
+		std::cout << "\t( init matrix(0,5) exception ): ";
+		try
+		{
+			Matrix m(0, 5);
+			initFlag = true;
+		}
+		catch (const std::exception&)
+		{
+			
+		}
+		AssertEqual(initFlag, false);
+
+		initFlag = false;
+		std::cout << "\t( init matrix(5,0) exception ): ";
+		try
+		{
+			Matrix m(5, 0);
+			initFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(initFlag, false);
 	}
 
 	void Matrix1x1InitTest()
@@ -53,6 +79,19 @@ namespace MatrixTests
 
 		std::cout << "\t(matrix.GetValue(0, 0) == 0): ";
 		AssertEqual(matrix.GetValue(0, 0), 0);
+
+		bool exceptionFlag = false;
+		std::cout << "\t( matrix.GetValue(-1, 0) exception ): ";
+		try
+		{
+			matrix.GetValue(-1, 0);
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
 	}
 
 	void MatrixSetValueTest()
@@ -71,6 +110,12 @@ namespace MatrixTests
 		matrix.SetValue(0, 0, 1);
 		std::cout << "\t(Set matrix[0][0] to 1): ";
 		AssertEqual(matrix.GetValue(0, 0), 1);
+
+		std::cout << "\t( Set matrix[-1][0] to 1 false ): ";
+		AssertEqual(matrix.SetValue(-1, 0, 1), false);
+
+		std::cout << "\t( Set matrix[0][-1] to 1 false ): ";
+		AssertEqual(matrix.SetValue(0, -1, 1), false);
 	}
 
 	void MatrixSortRowTest()
@@ -92,6 +137,19 @@ namespace MatrixTests
 
 		std::cout << "\t(sort row 0 in ([0, -5, 4]) and check matrix[2][0] == 4): ";
 		AssertEqual(matrix.GetValue(2,0), 4);
+
+		bool exceptionFlag = false;
+		std::cout << "\t( sort row -1 exception ): ";
+		try
+		{
+			matrix.SortRow(-1);
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
 	}
 
 
@@ -114,6 +172,19 @@ namespace MatrixTests
 
 		std::cout << "\t(sort column 0 in ([0], [-5], [4]) and check matrix[0][2] == 4): ";
 		AssertEqual(matrix.GetValue(0, 2), 4);
+
+		bool exceptionFlag = false;
+		std::cout << "\t( sort column -1 exception ): ";
+		try
+		{
+			matrix.SortColumn(-1);
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
 	}
 	
 	void MatrixAssignmentTest()
@@ -171,6 +242,32 @@ namespace MatrixTests
 		AssertEqual(m3.GetValue(0, 1), 2);
 		std::cout << "\t( ([1,2],[3,4]) + ([1,1],[-1,0]) and check (1,1) = 4): ";
 		AssertEqual(m3.GetValue(1, 1), 4);
+
+		bool exceptionFlag = false;
+		std::cout << "\t( matrix 2x2 + matrix 4x4 exception ): ";
+		try
+		{
+			m3 + Matrix(4, 4);
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
+
+		exceptionFlag = false;
+		std::cout << "\t( matrix 4x4 + matrix 2x2 exception ): ";
+		try
+		{
+			Matrix(4, 4) + m3;
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
 	}
 
 	void MatrixMinusTest()
@@ -195,6 +292,32 @@ namespace MatrixTests
 		AssertEqual(m3.GetValue(0, 1), 4);
 		std::cout << "\t( ([1,2],[3,4]) - ([1,1],[-1,0]) and check (1,1) = 4): ";
 		AssertEqual(m3.GetValue(1, 1), 4);
+
+		bool exceptionFlag = false;
+		std::cout << "\t( matrix 2x2 - matrix 4x4 exception ): ";
+		try
+		{
+			m3 - Matrix(4, 4);
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
+
+		exceptionFlag = false;
+		std::cout << "\t( matrix 4x4 - matrix 2x2 exception ): ";
+		try
+		{
+			Matrix(4, 4) - m3;
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
 	}
 
 	void MatrixIndexOperatorTest()
@@ -216,6 +339,32 @@ namespace MatrixTests
 		std::cout << "\t( ( index 3 assign -1  = -1): ";
 		m2[3] = -1;
 		AssertEqual(m2[3], -1);
+
+		bool exceptionFlag = false;
+		std::cout << "\t( matrix 2x2 index 4 exception ): ";
+		try
+		{
+			m2[4];
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
+
+		exceptionFlag = false;
+		std::cout << "\t( matrix 2x2 index -1 exception ): ";
+		try
+		{
+			m2[-1];
+			exceptionFlag = true;
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		AssertEqual(exceptionFlag, false);
 	}
 
 	void EMatrixTest()
