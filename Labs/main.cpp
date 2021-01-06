@@ -1,14 +1,14 @@
 #include <iostream>
 #include "Matrix.h"
 #include "Tests.hpp"
-#include "BaseMatrixList.h"
+#include "List.hpp"
 
 using namespace std;
 
 int main()
 {
 	Matrix matrix;
-	BaseMatrixList matrixList;
+	List<BaseMatrix> matrixList;
 	const char* serializePath = "serialized.b";
 
 	BaseMatrix B1(3, 2);

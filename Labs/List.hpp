@@ -1,17 +1,47 @@
-#include "BaseMatrixList.h"
+#pragma once
+#include "BaseMatrix.h"
+template <class T>
+class List
+{
+private:
+	class Node
+	{
+	public:
+		Node(T& obj)
+		{
+			val = &obj;
+		}
+		Node* next = nullptr;
+		Node* prev = nullptr;
+		T* val = nullptr;
+	};
 
-BaseMatrixList::BaseMatrixList()
+	Node* head = nullptr;
+	int size = 0;
+public:
+	List();
+	~List();
+	void Append(T& obj);
+	T& operator[](int index);
+	void Clear();
+	int GetSize();
+};
+
+template<class T>
+List<T>::List()
 {
 	head == nullptr;
 	size = 0;
 }
 
-BaseMatrixList::~BaseMatrixList()
+template<class T>
+List<T>::~List()
 {
 	Clear();
 }
 
-void BaseMatrixList::Append(BaseMatrix& obj)
+template<class T>
+void List<T>::Append(T& obj)
 {
 	size++;
 	if (head == nullptr)
@@ -28,10 +58,9 @@ void BaseMatrixList::Append(BaseMatrix& obj)
 	head->prev = temp;
 }
 
-BaseMatrix& BaseMatrixList::operator[](int index)
+template<class T>
+T& List<T>::operator[](int index)
 {
-	if (index < 0 || index >= size)
-		throw std::exception("Out of range");
 	Node* temp = head;
 	if (index >= 0)
 		for (int i = 0; i < index; i++)
@@ -43,10 +72,11 @@ BaseMatrix& BaseMatrixList::operator[](int index)
 		{
 			temp = temp->prev;
 		}
-	return *(temp->matrix);
+	return *(temp->val);
 }
 
-void BaseMatrixList::Clear()
+template<class T>
+void List<T>::Clear()
 {
 	size = 0;
 	if (head != nullptr)
@@ -62,7 +92,8 @@ void BaseMatrixList::Clear()
 	}
 }
 
-int BaseMatrixList::GetSize()
+template<class T>
+int List<T>::GetSize()
 {
 	return size;
 }

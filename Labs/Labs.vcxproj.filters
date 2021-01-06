@@ -30,9 +30,6 @@
     <ClCompile Include="TMatrix.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="BaseMatrixList.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tests.hpp">
@@ -53,7 +50,7 @@
     <ClInclude Include="ISettableMatrix.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="BaseMatrixList.h">
+    <ClInclude Include="List.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
